@@ -79,10 +79,17 @@ class Pyramid(BaseModel):
         self.program['p_matrix'].write(self.app.camera.p_matrix)
 
         # light
+        self.program['light.position'].write(self.app.light.position)
+        self.program['light.Ia'].write(self.app.light.Ia)
+        self.program['light.Id'].write(self.app.light.Id)
+        self.program['light.Is'].write(self.app.light.Is)
+
+        self.program['camPos'].write(self.app.camera.position)
 
     def update(self):
         m_matrix = glm.rotate(self.m_matrix, self.app.time * 0.5, glm.vec3(0,1,0))
         self.program['m_matrix'].write(m_matrix)
         self.program['v_matrix'].write(self.app.camera.v_matrix)
+        self.program['camPos'].write(self.app.camera.position)
 
     

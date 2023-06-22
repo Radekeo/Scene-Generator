@@ -83,8 +83,8 @@ class CubeVBO(BaseVBO):
 class PyramidVBO(BaseVBO):
     def __init__(self, app):
         super().__init__(app)
-        self.format = '2f 3f'
-        self.attribs = ['in_texcoord_0', 'in_position']
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
         vertices = [(-1, -1, 1), ( -1, -1,  -1), (1,  -1,  -1), (1, -1,  1), (0, 1, 0)]
@@ -103,6 +103,15 @@ class PyramidVBO(BaseVBO):
                              (3, 2, 1), (0, 1, 2)]
         tex_coord_data = self.get_data(tex_coord_vertices, tex_coord_indices)
 
-    
+        normals = [ (0, 0, 1) * 3,
+                    (1, 0, 0) * 3,
+                    (0, 0, -1) * 3,
+                    (-1, 0, 0) * 3,
+                    (0, -1, 0) * 3,
+                    (0, -1, 0) * 3,]
+
+        normals = np.array(normals, dtype='f4').reshape(18,3)
+
+        vertex_data = np.hstack([normals, vertex_data])
         vertex_data = np.hstack([tex_coord_data, vertex_data])
         return vertex_data

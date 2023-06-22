@@ -38,6 +38,7 @@ class GraphicsEngine:
         self.clock = pg.time.Clock()
 
         self.light = Light().lights[RAND_COLOR]
+        print(RAND_COLOR)
         self.camera = Camera(self)
         self.mesh = Mesh(self)
         self.scene = Scene(self)   
